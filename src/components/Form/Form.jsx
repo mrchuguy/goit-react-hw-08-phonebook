@@ -18,18 +18,8 @@ export function Form() {
   const { data: contacts } = useGetContactsQuery();
   const [addContact, { isLoading }] = useAddContactMutation();
 
-  const handleChange = event => {
-    const { name, value } = event.currentTarget;
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'number':
-        setNumber(value);
-        break;
-      default:
-        return console.log('error');
-    }
+  const handleChange = ({ target: { name, value } }) => {
+    name === 'name' ? setName(value) : setNumber(value);
   };
 
   const onSubmitForm = event => {
@@ -48,13 +38,9 @@ export function Form() {
     } else {
       addContact(newContact);
       Notiflix.Notify.success(`Contact added`);
-      reset();
+      setName('');
+      setNumber('');
     }
-  };
-
-  const reset = () => {
-    setName('');
-    setNumber('');
   };
 
   return (

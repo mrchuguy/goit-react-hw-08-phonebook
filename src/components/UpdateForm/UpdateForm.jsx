@@ -27,16 +27,8 @@ export const UpdateForm = ({ id, toggleModal }) => {
     return contact?.number;
   });
 
-  const handleChange = event => {
-    const contact = event.target;
-    switch (contact.name) {
-      case 'name':
-        return setName(contact.value);
-      case 'number':
-        return setNumber(contact.value);
-      default:
-        return;
-    }
+  const handleChange = ({ target: { name, value } }) => {
+    name === 'name' ? setName(value) : setNumber(value);
   };
 
   const onEditContact = async event => {

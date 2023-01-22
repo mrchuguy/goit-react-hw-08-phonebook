@@ -2,9 +2,16 @@ import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/authOperations';
 import { Box } from '../../components/Box/Box';
 import { Label, Input, Button, Link } from './LoginForm.styled';
+import { useState } from 'react';
 
 export const LoginForm = () => {
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
   const dispatch = useDispatch();
+
+  const handleChange = ({ target: { name, value } }) => {
+    name === 'email' ? setEmail(value) : setPass(value);
+  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -32,12 +39,24 @@ export const LoginForm = () => {
       <Label>
         {' '}
         Email
-        <Input name="email" type="email" id="email" />
+        <Input
+          name="email"
+          type="email"
+          id="email"
+          value={email}
+          onChange={handleChange}
+        />
       </Label>
       <Label>
         {' '}
         Password
-        <Input name="password" type="password" id="password" />
+        <Input
+          name="password"
+          type="password"
+          id="password"
+          value={pass}
+          onChange={handleChange}
+        />
       </Label>
 
       <Box display="flex" justifyContent="space-between" alignItems="center">
